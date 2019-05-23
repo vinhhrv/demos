@@ -247,26 +247,26 @@ limitations under the License.
 
           let options = {
             filters: [
-              { services: ['0000ffe0-0000-1000-8000-00805f9b34fb']}
+              { namePrefix: 'RP'}
             ]
           }
 
-          navigator.bluetooth.requestDevice({acceptAllDevices : true}).then(device => {
-            console.log(device);
-          });
-
           // navigator.bluetooth.requestDevice(options).then(device => {
-          //   console.log('connecting to ' + device.name);
-          //   return device.gatt.connect();
-          // })
-          // .then(server => server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb'))
-          // .then(service => service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb'))
-          // .then(characteristic => {
-          //     // Cache the characteristic
-          //     printCharacteristic = characteristic;
-          //     sendPrinterData();
-          //   })
-          // .catch(handleError);
+          //   console.log(device);
+          // });
+
+          navigator.bluetooth.requestDevice(options).then(device => {
+            console.log('connecting to ' + device.name);
+            return device.gatt.connect();
+          })
+          .then(server => server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb'))
+          .then(service => service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb'))
+          .then(characteristic => {
+              // Cache the characteristic
+              printCharacteristic = characteristic;
+              sendPrinterData();
+            })
+          .catch(handleError);
 
           return;
 
